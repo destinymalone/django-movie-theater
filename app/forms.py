@@ -3,6 +3,6 @@ from django.forms import ModelChoiceField
 from app.models import Showing
 
 
-class NewTicketForm(ModelChoiceField):
-    def label_from_instance(self, showing):
-        return "#%i" % showing.id
+class NewTicketForm(forms.Form):
+    name = forms.CharField()
+    showing_id = forms.IntegerField()

@@ -42,7 +42,7 @@ class TestUserCanPurchaseATicket(TestCase):
 
     def test_GETting_new_ticket_page_renders_form_for_new_ticket(self):
         movie = models.Movie.objects.create(
-            title="Big Franchise Movie", rating="PG-13", genre="Action", runtime="2h3m",
+            title="Big Franchise Movie", rating="PG-13", genre="Action", runtime="2h3m"
         )
 
         response = self.client.get(reverse("new_ticket", args=[movie.id]))
@@ -53,7 +53,7 @@ class TestUserCanPurchaseATicket(TestCase):
 
     def test_POSTing_new_ticket_page_with_valid_data_creates_a_new_ticket(self):
         movie = models.Movie.objects.create(
-            title="Big Franchise Movie", rating="PG-13", genre="Action", runtime="2h3m",
+            title="Big Franchise Movie", rating="PG-13", genre="Action", runtime="2h3m"
         )
         showing = movie.showing_set.create(showtime="noon")
 
@@ -68,7 +68,7 @@ class TestUserCanPurchaseATicket(TestCase):
 
     def test_POSTing_new_ticket_page_with_valid_data_redirects_to_ticket_detail(self):
         movie = models.Movie.objects.create(
-            title="Big Franchise Movie", rating="PG-13", genre="Action", runtime="2h3m",
+            title="Big Franchise Movie", rating="PG-13", genre="Action", runtime="2h3m"
         )
         showing = movie.showing_set.create(showtime="noon")
 

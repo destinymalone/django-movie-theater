@@ -3,6 +3,7 @@ from app.models import Movie, Showing, Ticket
 from django.http import HttpResponseRedirect
 from django.views import View
 from app.forms import NewTicketForm
+from datetime import datetime
 
 # Create your views here.
 
@@ -16,30 +17,24 @@ class Home(View):
 class NewTicket(View):
     def get(self, request, id):
         purchase = Movie.objects.get(id=id)
-        forms = NewTicketForm.objects.all()
-        return render(request, "new_ticket.html", {"movie": purchase}, {"form": forms})
-
-    def getting(self, request, id):
-        purchase = Movie.object.get(id=id)
-        if request.method == "POST":
-            form = NewTicketForm(request.POST)
-            if form.is_valid():
-                return HttpResponseRedirect("/thanks/")
-        else:
-            form = NewTicketForm()
-
-        return render(request, "new_ticket.html", {"movie": purchase}, {"form": form})
+        forms = NewTicketForm()
+        return render(request, "new_ticket.html", {"movie": purchase, "form": forms})
 
     def post(self, request, id):
-        showtime = Showing.objects.get(showtime)
-        purchase = Ticket.object.get(id=id)
-        Ticket.objects.create(name=purchase, showing_id=showtime)
-        return render(
-            request, "new_ticket.html", {"movie": purchase}, {"form": showtime}
-        )
+        form = NewTicketForm(request.POST)
+        if form.is_valid():
+            t = Ticket.objects.create(
+                name=form.cleaned_data["name"],
+                showing_id=form.cleaned_data["showing_id"],
+                purchased_at=datetime.now(),
+            )
+            return redirect("ticket_detail", t.id)
+        else:
+            form = NewTicketForm()
+            return render(request, "new_ticket.html", {"movie": purchase, "form": form})
 
 
 class TicketDetail(View):
-    def post(self, request):
-        ticket = Ticket.objects.all()
+    def get(self, request, id):
+        ticket = Ticket.objects.get(id=id)
         return render(request, "ticket_detail.html", {"ticket": ticket})
