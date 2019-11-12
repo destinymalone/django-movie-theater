@@ -21,7 +21,7 @@ class PurchaseTicket(View):
     def post(self, request, id):
         showtime = Showing.objects.get(showtime)
         purchase = NewTicketForm.objects.get(id=id)
-        if request.method == POST:
+        if request.method == "POST":
             Ticket.objects.create(
                 name=purchase, showing_id=showtime
             )
