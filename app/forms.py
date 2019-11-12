@@ -1,7 +1,8 @@
-from django.db import forms
+from django import forms
+from django.forms import ModelChoiceField
 from app.models import Showing
 
 
-class NewTicketForm(forms.Form):
-    name = forms.TextField()
-    showing_id = forms.ForeignKey(Showing, on_delete=forms.PROTECT)
+class NewTicketForm(ModelChoiceField):
+    def label_from_instance(self, showing):
+        return "#%i" % showing.id
