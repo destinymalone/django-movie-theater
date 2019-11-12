@@ -21,5 +21,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.Home.as_view(), name="home"),
     path("movie/<id>/tickets/new", views.NewTicket.as_view(), name="new_ticket"),
-    path("ticket<id>", views.TicketDetail.as_view(), name="ticket_detail"),
+    path("ticket/<id>", views.TicketDetail.as_view(), name="ticket_detail"),
 ]

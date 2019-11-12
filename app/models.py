@@ -9,10 +9,10 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Movie(models.Model):
     title = models.TextField()
-    rating = models.TextField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    rating = models.TextField()  # "PG-13"
     genre = models.TextField()
     runtime = models.TextField()
-
+    
     def __str__(self):
         return self.title, self.runtime
 
